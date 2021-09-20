@@ -1,0 +1,123 @@
+---
+title: "Linear models and linear mixed effects models in R"
+author: "Sille Hasselbalch Markussen"
+date: "9/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Fixed effects models
+# Creating the data set pitch ~ sex
+```{r}
+pitch = c(233,204,242,130,112,142)
+sex = c(rep("female",3),rep("male",3))
+my.df = data.frame(sex,pitch)
+```
+
+# modelling
+```{r}
+xmdl = lm(pitch ~ sex, my.df)
+summary(xmdl)
+```
+
+# interpreting the output
+```{r}
+mean(my.df[my.df$sex=="female",]$pitch)
+# = the intercept 226.33 is the mean of the female voice pitch values
+# the slope subtracted from the intercept is the mean of the male voice pitch values
+```
+
+# new data - pitch ~ age
+```{r}
+age = c(14,23,35,48,52,67)
+pitch = c(252,244,240,233,212,204)
+my.df = data.frame(age,pitch)
+xmdl = lm(pitch ~ age, my.df)
+summary(xmdl)
+```
+
+# Checking assumptions
+```{r}
+# residual plot
+plot(fitted(xmdl),residuals(xmdl), ylim = c(-15, 15))
+abline(a=0, b=0)
+
+# Normality of residuals 
+hist(residuals(xmdl))
+qqnorm(residuals(xmdl))
+
+# the leave one out diagnostic
+dfbeta(xmdl)
+```
+
+## Mixed effects models
+
+```{r}
+library('lme4')
+politeness= read.csv("http://www.bodowinter.com/tutorial/politeness_data.csv")
+
+# familiarizing to the data
+# Checking for na values
+which(is.na(politeness)==T)
+
+# boxplot illustrating the relationship between politeness and pitch
+boxplot(frequency ~ attitude*gender,
+      col=c("white","lightgray"),politeness)
+```
+
+# Modelling!
+```{r}
+politeness.model = lmer(frequency ~ attitude + (1|subject) + (1|scenario), data=politeness)
+politeness.model
+```
+
+# significance testing
+```{r}
+politeness.null = lmer(frequency ~ gender +
+          (1|subject) + (1|scenario), data=politeness,
+          REML=FALSE)
+
+politeness.model = lmer(frequency ~ attitude +
+          gender +
+          (1|subject) + (1|scenario), data=politeness,
+          REML=FALSE)
+
+# Likelihood ratio test
+anova(politeness.null,politeness.model)
+```
+
+A way to report the results of a mixed effect model
+“... politeness affected pitch (χ2(1)=11.62, p=0.00065), lowering it by about 19.7 Hz ± 5.6 (standard errors) ...”
+
+
+# Adding random slope
+```{r}
+# Cheking coefficients from every subject/scenario of the random intercept model
+coef(politeness.model)
+
+# Building a random slope model
+politeness.model = lmer(frequency ~ attitude +
+          gender + (1+attitude|subject) +
+          (1+attitude|scenario),
+          data=politeness,REML=FALSE)
+# Cheking coefficients from every subject/scenario of the random slope model
+coef(politeness.model)
+
+# Obtaining p-value
+anova(politeness.null,politeness.model)
+
+```
+
+
+
+
+
+
+
+
+
+
+

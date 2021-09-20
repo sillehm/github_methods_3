@@ -88,18 +88,18 @@ summary(model)
 
 ```{r}
 betahat <- model$coefficients
-Y <- mtcars$mpg
+y <- mtcars$mpg
 yhat <- betahat[1]+betahat[2]*mtcars$wt
-X <- mtcars$wt
+x <- mtcars$wt
 epsilon <- model$residuals
 ```
 
     i. create a plot that illustrates $Y$ and $\hat{Y}$ (if you are feeling ambitious, also include $\epsilon$ (hint: you can use the function __arrows__))
 
 ```{r}
-plot(X, Y)
+plot(x, y)
 abline(a = betahat[1], b = betahat[2], col = "lightblue3")
-arrows(X, Y, x1= X, y1 = yhat, angle = 0, length = 0)
+arrows(x, y, x1= x, y1 = yhat, angle = 0, length = 0)
 
 ```
 The line illustrates the predicted values $\hat{Y}$ and the dots are the actual values $Y$
@@ -108,39 +108,106 @@ The line illustrates the predicted values $\hat{Y}$ and the dots are the actual 
 
 ```{r}
 n <- 32
-a <- c(rep(1, n))
-X <- cbind(a, mtcars$wt, )
+X <- cbind(rep(1, n), mtcars$wt, (mtcars$wt)^2)
 
-solve(t(X)%*%X)%*%t(X)%*%y
-
-
-#git status
-#git add .
-#git commit -m "newest version"
-#git push origin main
+bhats <- solve(t(X)%*%X)%*%t(X)%*%y
+bhats
 ```
 
 3. compare your acquired $\hat{\beta}$ with the output of the corresponding quadratic model created using __lm__ (hint: use the function __I__, see details under help and the sub-section formula operators here: https://www.datacamp.com/community/tutorials/r-formula-tutorial)  
-    i. create a plot that illustrates $Y$ and $\hat{Y}$ (if you are feeling ambitious, also include $\epsilon$ (hint: you can use the function __arrows__))  
+
+```{r}
+lm2 <- lm(y ~ X[,2] + X[,3])
+lm2
+```
+The values are the same!
+
+ i. create a plot that illustrates $Y$ and $\hat{Y}$ (if you are feeling ambitious, also include $\epsilon$ (hint: you can use the function __arrows__))  
+ 
+```{r}
+yhat2 <- X%*%bhats
+plot(y, yhat2)
+abline(a = 0, b = 1, col = "lightblue3")
+
+```
 
 ## Exercise 2
 Compare the plotted quadratic fit to the linear fit  
 
 1. which seems better?  
-2. calculate the sum of squared errors, (show the calculation based on $\epsilon$). Which fit has the lower sum?  
+```{r}
+# plotting the same way for the two fits. 
+par(mfrow=c(1,2))
+plot(y, yhat2)
+abline(a = 0, b = 1, col = 'lightblue3')
+plot(y, yhat)
+abline(a = 0, b = 1, col = 'salmon1')
+```
+
+The data points seems more equally distributed both above and below close to the line on the plot illustrating the quadratic fit (blue line). It seems as if the quadratic fit may capture the trends of the data better.
+
+
+2. calculate the sum of squared errors, (show the calculation based on $\epsilon$). Which fit has the lower sum?
+```{r}
+# linear
+sum((y-yhat)^2)
+
+# quadratic
+sum((y-yhat2)^2)
+
+```
+
 3. now make a cubic fit ($y = {\beta}_{3} x^3 + {\beta}_{2} x^2 + {\beta}_{1} x + {\beta}_{0}$) and compare it to the quadratic fit  
+```{r}
+X3 <- cbind(rep(1, n), mtcars$wt, (mtcars$wt)^2, (mtcars$wt)^3)
+
+bhats3 <- solve(t(X3)%*%X3)%*%t(X3)%*%y
+lm3 <-lm(y ~ X3[,2] + X3[,3] + X3[,4]) 
+bhats
+bhats3
+```
+
     i. create a plot that illustrates $Y$ and $\hat{Y}$ for both the cubic and the quadratic fits (plot them in the same plot)  
+```{r}
+both_plot <- ggplot(mtcars, aes(x = wt, y = mpg))+
+  geom_point()+
+  #geom_smooth(method = "loess", formula = "y ~ x + x^2", se = FALSE)+
+  stat_smooth(method = "lm", formula = y ~ x + I(x^2), size = 1, se = FALSE)+
+  stat_smooth(method = "lm", formula = y ~ x + I(x^2) + I(x^3), size = 1, color = "green", se = FALSE)
+both_plot
+
+```
+    
     ii. compare the sum of squared errors  
-    iii. what's the estimated value of the "cubic" (${\beta}_3$) parameter? Comment on this!  
+```{r}
+# quadratic
+sum((y-yhat2)^2)
+
+# cubic
+sum((y-yhat3)^2)
+```
+    The sum of squared errors for the cubic fit is less than 0.1 smaller than that of the quadratic. Thus, they are almost equal. 
+    
+    iii. what's the estimated value of the "cubic" (${\beta}_3$) parameter? Comment on this! 
+```{r}
+bhats3[4]
+```
+    The value of the cubic parameter is estimated to 0.05 meaning that the y values predicted predicted form the cubic fit is added $0.05^3$ to the y values predicted from the quadratic fit.
+    
+
 4. bonus question: which summary statistic is the fitted value (_Intercept_ or ${\beta}_0$ in $y = {\beta}_0$) below identical to?
 ```{r, echo=FALSE}
 lm(mpg ~ 1, data=mtcars)
+mean(mtcars$mpg)
 ```
+Identical to the mean of Miles/(US) gallon.
+
+
 ## Exercise 3
 Doing a logistic regression - estimating the probability that a car has automatic transmission (0) or manual transmission (1) based on its weight
 ```{r, eval=FALSE}
 data(mtcars)
-logistic.model <- glm(formula=..., data=..., family='binomial)
+logistic.model <- glm(formula = am ~ wt, data = mtcars, family = 'binomial')
 ```
 
 Probabilities live on the range $(0, 1)$ - using the so-called logit function as a "link-function" we can map these onto the range $(-\infty, \infty)$, i.e. the real numbers.  
@@ -153,11 +220,40 @@ logit <-     function(x) log(x / (1 - x))
 inv.logit <- function(x) exp(x) / (1 + exp(x))
 ```
 
-1. plot the fitted values for __logistic.model__:  
+1. plot the fitted values for __logistic.model__:
+```{r}
+logX <- cbind(rep(1, n), mtcars$wt)
+logbetahat <- c(logistic.model$coefficients[1],logistic.model$coefficients[2])
+
+logyhat <- inv.logit(logX%*%logbetahat)
+plot(mtcars$wt, logyhat)
+```
+
     i. what is the relation between the __linear.predictors__ and the __fitted_values__ of the __logistic.model__ object?
+
 2. plot the logistic function, you've estimated based on your $\hat{\beta}$, (not just the fitted values). Use an _xlim_ of (0, 7)
+```{r}
+newdat <- data.frame(wt=seq(min(mtcars$wt), max(mtcars$wt),len=100))
+newdat$am = predict(logistic.model, newdata=newdat, type="response")
+plot(am ~ wt, data=mtcars, xlim=c(0,7))
+lines(am ~ wt, newdat, col="lightblue3", lwd=2)
+```
+
     i. what's the interpretation of the estimated $\hat{\beta}_0$ (the _Intercept_)
+```{r}
+logyhat[1]
+inv.logit(logyhat[1])
+
+```
+    With a weight of 0 the log-odds of a car having manual transmission is 0.82. Taking the inverse logit of the log-odds gives a probability of of a car having manual transmission of 69.36%.
+    
     ii. calculate the estimated probability that the Pontiac Firebird has automatic transmission, given its weight
+```{r}
+1-inv.logit(predict(logistic.model, newdata = mtcars[25,]))
+
+```
+    The probability that the Pontiac Firebird has automatic transmission is 96.87%
+    
     iii. bonus question - plot the logistic function and highlight all the cars where we guessed wrongly, if we used the following "quantizer" function:
     
 \begin{equation}
@@ -167,12 +263,38 @@ inv.logit <- function(x) exp(x) / (1 + exp(x))
     0 (automatic), & \text{otherwise}
   \end{cases}
 \end{equation}    
-    
+
+
 3. plot quadratic fit alongside linear fit  
+```{r}
+both_plot2 <- ggplot(mtcars, aes(x = wt, y = mpg))+
+  geom_point()+
+  #geom_smooth(method = "loess", formula = "y ~ x + x^2", se = FALSE)+
+  stat_smooth(method = "lm", formula = y ~ x + I(x^2), size = 1, se = FALSE)+
+  stat_smooth(method = "lm", formula = y ~ x, size = 1, color = "green", se = FALSE)
+both_plot2
+```
+
     i. judging visually, does adding a quadratic term make a difference?
+  Visually the two lines are not equal. It seems as if the quadratic fir (illustrated by the blue line) captures the trends in the data better than the linear fit. This is especially the case concerning the values of very low weight and of high weight where in both cases the linear fit seems to underestimate the predicted mpg, 
+  
     ii. check the details in the help of the AIC function - which of the models provide the better fit according to the AIC values and the residual deviance respectively?
+```{r}
+# The linear fit
+AIC(model)
+
+# The quadratic fit
+AIC(lm2)
+```
+  The model with the lowest AIC is the quadratic fit with AIC=158.05 compared to AIC=166.03 for the linear model. This indicates that the quadratic model provides a better fit. 
+  
     iii. in your own words, why might it be good to penalise a model like the quadratic model, we just fitted.
-    
+
+
+
+
+
+ 
 # Next time
 We are going to looking at extending our models with so called random effects. We need to install the package "lme4" for this. Run the code below or install it from your package manager (Linux)  
 ```{r, eval=FALSE}

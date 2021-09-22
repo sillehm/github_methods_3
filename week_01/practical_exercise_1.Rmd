@@ -70,7 +70,7 @@ The objectives of today's exercises are:
 3) To estimate models based on binomially distributed data  
 
 If you would like to read more about a given function, just prepend the function with a question mark, e.g.  
-``` {r, eval=FALSE}
+``` {r}
 ?lm
 ```
 
@@ -79,7 +79,7 @@ REMEMBER: In your report, make sure to include code that can reproduce the answe
 ## Exercise 1
 The general linear model: $Y = X \beta + \epsilon$:  
 Do a linear regression, expressing fuel usage as a function of weight using the function __lm__  
-```{r, eval=FALSE}
+```{r}
 data(mtcars)
 model <- lm(formula=mpg ~ wt, data=mtcars)
 summary(model)
@@ -163,6 +163,8 @@ X3 <- cbind(rep(1, n), mtcars$wt, (mtcars$wt)^2, (mtcars$wt)^3)
 
 bhats3 <- solve(t(X3)%*%X3)%*%t(X3)%*%y
 lm3 <-lm(y ~ X3[,2] + X3[,3] + X3[,4]) 
+yhat3 <- X3 %*% bhats3
+
 bhats
 bhats3
 ```
@@ -205,7 +207,7 @@ Identical to the mean of Miles/(US) gallon.
 
 ## Exercise 3
 Doing a logistic regression - estimating the probability that a car has automatic transmission (0) or manual transmission (1) based on its weight
-```{r, eval=FALSE}
+```{r}
 data(mtcars)
 logistic.model <- glm(formula = am ~ wt, data = mtcars, family = 'binomial')
 ```

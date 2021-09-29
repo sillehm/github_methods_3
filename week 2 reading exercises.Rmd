@@ -111,7 +111,26 @@ anova(politeness.null,politeness.model)
 
 ```
 
+# Checking for assumptions
+```{r}
 
+#leave ine out diagnostic loop
+all.res=numeric(nrow(mydataframe))
+
+for(i in 1:nrow(mydataframe)){
+    myfullmodel=lmer(response~predictor+
+    (1+predictor|randomeffect),POP[-i,])
+    all.res[i]=fixef(myfullmodel)[some number] 
+    }
+```
+
+#### From the tutorial #####
+The basic idea of this code snippet is this: Pre-define a vector that has as many elements as you have rows in your dataset. Then, cycle through each row. For each iteration, make a new mixed model without that row (this is achieved by POP[-i,]). Then, the function fixef() extracts whatever coefficient interests you.
+You will need to adapt this code to your analysis. Besides the names of your data frame and your variables, you need to run fixef() on your model once so you know which position the relevant coefficient is. In our case, I would put a “2” in there because the effect of “attitudepol” appears second in the list of coefficients. “1” would give me the intercept, always the first coefficient mentioned in the coefficient table.
+
+
+#### Writing up the results #####
+“We used R (R Core Team, 2012) and lme4 (Bates, Maechler & Bolker, 2012) to perform a linear mixed effects analysis of the relationship between pitch and politeness. As fixed effects, we entered politeness and gender (without interaction term) into the model. As random effects, we had intercepts for subjects and items, as well as by-subject and by-item random slopes for the effect of politeness. Visual inspection of residual plots did not reveal any obvious deviations from homoscedasticity or normality. P-values were obtained by likelihood ratio tests of the full model with the effect in question against the model without the effect in question.”
 
 
 

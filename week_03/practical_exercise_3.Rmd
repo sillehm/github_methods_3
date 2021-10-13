@@ -57,10 +57,7 @@ for (i in 1:length(lau_files)){
     i. add a variable to the data frame and call it _correct_ (have it be a _logical_ variable). Assign a 1 to each row where the subject indicated the correct answer and a 0 to each row where the subject indicated the incorrect answer (__Hint:__ the variable _obj.resp_ indicates whether the subject answered "even", _e_ or "odd", _o_, and the variable _target_type_ indicates what was actually presented.
 ```{r}
 
-lau$target.type[which(lau$target.type=='even')] <- 'e'
-lau$target.type[which(lau$target.type=='odd')] <- 'o'
-
-lau$correct <- ifelse((lau$target.type == lau$obj.resp), 1, 0)
+lau$correct <- ifelse((lau$target.type == "even" & lau$obj.resp == "e"| lau$target.type == "odd" & lau$obj.resp == "o" ), 1, 0)
 
 ```
   
@@ -135,10 +132,6 @@ nopoolfun <- function(i){
 }
 
 # Running the function for every participant
-for (participant in 1:29){
-  nopoolfun(participant)
-}
-
 subjects <- c(1:15)
 
 plots <- lapply(subjects, FUN=nopoolfun)
@@ -147,7 +140,6 @@ do.call(grid.arrange,  plots)
 subjects <- c(16:29)
 
 plots <- lapply(subjects, FUN=nopoolfun)
-require(gridExtra)
 do.call(grid.arrange,  plots)
 ```
 <br><br>
@@ -287,18 +279,18 @@ summary(m5)
 <br>
 Both for the quadruplet and the singles tasks reaction times are shorter than the pair task. This is indicated by the negative slopes of quadruplet and singles in relation to pairs as the intercept. Relative to the quadruplet task the reaction time of the singles task is faster. 
  
-<br>
+<br> *** noget med modellerne skal laves om her ***
    
 3) Now add _pas_ and its interaction with _task_ to the fixed effects 
 ```{r}
-m_pas <- lm(log(rt.obj) ~ task*pas, lau_exp, REML = F)
+m_pas <- lm(log(rt.obj) ~ task*pas + (1+task|subject) + (1|trial), lau_exp, REML = F)
 ```
 <br>
     i. how many types of group intercepts (random effects) can you add without ending up with convergence issues or singular fits?
 ```{r}
-ma <- lmer(log(rt.obj) ~ task + (1|subject) + (1|trial) + (1|cue), lau_exp, REML = F)
-mb <- lmer(log(rt.obj) ~ task + (1|subject) + (1|trial) + (1|cue) + (1|target.contrast), lau_exp, REML = F)
-mc <- lmer(log(rt.obj) ~ task + (1|subject) + (1|trial) + (1|cue) + (1|target.contrast) + (1|target.type), lau_exp, REML = F)
+ma <- lmer(log(rt.obj) ~ task * pas + (1|subject) + (1|trial) + (1|cue), lau_exp, REML = F)
+mb <- lmer(log(rt.obj) ~ task * pas + (1|subject) + (1|trial) + (1|cue) + (1|target.contrast), lau_exp, REML = F)
+mc <- lmer(log(rt.obj) ~ task * pas + (1|subject) + (1|trial) + (1|cue) + (1|target.contrast) + (1|target.type), lau_exp, REML = F)
 ```
   Adding four types of group intercepts ( _subject_, _trial_, _cue_ & _target.contrast_ ) resulted in a singular fit. When adding a fourth type of group intercept ( _target.type_ ) the model failed to converge. 
 <br>
@@ -458,3 +450,10 @@ accuracyfun(m3, lau_exp)
 
 ```
 Evaluating the accuracy of the classifications of correct/not correct for the three models, it is visible that their performance is the same, predicting correctness with 74% accuracy. 
+
+Compare to mean model
+
+
+r^2 1/(total varians der skal forklares/varians der er)
+
+hvilke variable er vigtige

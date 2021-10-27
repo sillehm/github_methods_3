@@ -1,8 +1,10 @@
 ---
 title: "practical_exercise_5, Methods 3, 2021, autumn semester"
 author: '[FILL IN YOUR NAME]'
-date: "[FILL IN THE DATE]"
-output: pdf_document
+date: '[FILL IN THE DATE]'
+output:
+  html_document:
+    df_print: paged
 ---
 
 <style type="text/css">
@@ -34,7 +36,7 @@ Go to https://osf.io/ecxsj/files/ and download the files associated with Experim
 The data is associated with Experiment 1 of the article at the following DOI https://doi.org/10.1016/j.concog.2019.03.007  
   
 1) Put the data from all subjects into a single data frame - note that some of the subjects do not have the _seed_ variable. For these subjects, add this variable and make in _NA_ for all observations. (The _seed_ variable will not be part of the analysis and is not an experimental variable)
-```{r message=TRUE, warning=TRUE 4.1}
+```{r message=TRUE, warning=TRUE, 4.1}
 df <- read_bulk(directory = "/Users/Sillemarkussen/Desktop/github_methods_3/week_05/experiment_1", stringsAsFactors = T)
 ```
      i. Factorise the variables that need factorising  
@@ -64,7 +66,7 @@ The variable target frames indicates the amount of frames the target object is p
 # EXERCISE 5 - Use log-likelihood ratio tests to evaluate logistic regression models
 
 1) Do logistic regression - _correct_ as the dependent variable and _target.frames_ as the independent variable. (Make sure that you understand what _target.frames_ encode). Create two models - a pooled model and a partial-pooling model. The partial-pooling model should include a subject-specific intercept. 
-```{r message=FALSE, warning=FALSE 5.1}
+```{r message=FALSE, warning=FALSE, 5.1}
 pool_m <- glm(correct ~ target.frames, df, family = "binomial")
 partpool_m <- glmer(correct ~ target.frames + (1 | subject), df, family = "binomial")
 ```
@@ -251,7 +253,7 @@ summary(t)
 There is a significant difference between the increase in accuracy between PAS 2 and 1 and the increase of accuracy between PAS 4 and 3. Since the estimate is positive, the difference between PAS 2 and 1 is greater than the difference between PAS 4 and 3.
 
 ### Snippet for 6.2.i
-```{r, eval=FALSE}
+```{r}
 ## testing whether PAS 2 is different from PAS 1
 contrast.vector <- matrix(c(0, 0, 0, 0, 0, 1, 0, 0), nrow=1)
 gh <- glht(pas_m_int, contrast.vector)
@@ -271,7 +273,7 @@ It has four parameters: _a_, which can be interpreted as the minimum accuracy le
   
 We can define a function of a residual sum of squares as below
 
-```{r, eval=FALSE}
+```{r}
 RSS <- function(dataset, par)
 {
     ## "dataset" should be a data.frame containing the variables x (target.frames)
@@ -406,7 +408,7 @@ output <- data.frame()
 for (i in 1:length(unique(df$subject))){
   for (n in 1:length(unique(df$pas))) {
   # Creating a data frame for each participant in each pas  
-  subject_df <- loop.df %>% 
+  subject_df <- loop_df %>% 
     filter(subject == i & pas == n)
   
   # Using the optim function on each subject in each pas

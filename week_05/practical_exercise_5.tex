@@ -1,0 +1,1288 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{practical\_exercise\_5, Methods 3, 2021, autumn semester}
+\author{{[}FILL IN YOUR NAME{]}}
+\date{{[}FILL IN THE DATE{]}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={practical\_exercise\_5, Methods 3, 2021, autumn semester},
+  pdfauthor={{[}FILL IN YOUR NAME{]}},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-and-objectives}{%
+\section{Exercises and objectives}\label{exercises-and-objectives}}
+
+The objectives of the exercises of this assignment are based on:
+\url{https://doi.org/10.1016/j.concog.2019.03.007}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Download and organise the data from experiment 1\\
+\item
+  Use log-likelihood ratio tests to evaluate logistic regression
+  models\\
+\item
+  Test linear hypotheses\\
+\item
+  Estimate psychometric functions for the Perceptual Awareness Scale and
+  evaluate them
+\end{enumerate}
+
+REMEMBER: In your report, make sure to include code that can reproduce
+the answers requested in the exercises below (\textbf{MAKE A KNITTED
+VERSION})\\
+REMEMBER: This is part 2 of Assignment 2 and will be part of your final
+portfolio
+
+\hypertarget{exercise-4---download-and-organise-the-data-from-experiment-1}{%
+\section{EXERCISE 4 - Download and organise the data from experiment
+1}\label{exercise-4---download-and-organise-the-data-from-experiment-1}}
+
+Go to \url{https://osf.io/ecxsj/files/} and download the files
+associated with Experiment 1 (there should be 29).\\
+The data is associated with Experiment 1 of the article at the following
+DOI \url{https://doi.org/10.1016/j.concog.2019.03.007}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Put the data from all subjects into a single data frame - note that
+  some of the subjects do not have the \emph{seed} variable. For these
+  subjects, add this variable and make in \emph{NA} for all
+  observations. (The \emph{seed} variable will not be part of the
+  analysis and is not an experimental variable)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_bulk}\NormalTok{(}\AttributeTok{directory =} \StringTok{"/Users/Sillemarkussen/Desktop/github\_methods\_3/week\_05/experiment\_1"}\NormalTok{, }\AttributeTok{stringsAsFactors =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Reading 001.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 002.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 003.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 004.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 005.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 006.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 007.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 008.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 009.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 010.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 011.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 012.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 013.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 014.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 015.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 016.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 017.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 018.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 019.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 020.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 021.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 022.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 023.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 024.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 025.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 026.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 027.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 028.csv
+\end{verbatim}
+
+\begin{verbatim}
+## Reading 029.csv
+\end{verbatim}
+
+\begin{verbatim}
+ i. Factorise the variables that need factorising  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{subject }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{subject)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{pas }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pas)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ii. Remove the practice trials from the dataset (see the _trial.type_ variable)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(trial.type}\SpecialCharTok{==}\StringTok{"experiment"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+iii. Create a _correct_ variable  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{target.type }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{target.type)}
+
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{correct }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{((df}\SpecialCharTok{$}\NormalTok{target.type }\SpecialCharTok{==} \StringTok{"even"} \SpecialCharTok{\&}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{obj.resp }\SpecialCharTok{==} \StringTok{"e"}\SpecialCharTok{|}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{target.type }\SpecialCharTok{==} \StringTok{"odd"} \SpecialCharTok{\&}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{obj.resp }\SpecialCharTok{==} \StringTok{"o"}\NormalTok{ ), }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+iv. Describe how the _target.contrast_ and _target.frames_ variables differ compared to the data from part 1 of this assignment  
+\end{verbatim}
+
+In the second experiment the target contrast was adjusted for each
+participant. Contrary, the first experiment had a target contrast value
+set at 0.1 for all participants. The variable target frames indicates
+the amount of frames the target object is presented in. One frame is
+11.8 ms.
+
+\hypertarget{exercise-5---use-log-likelihood-ratio-tests-to-evaluate-logistic-regression-models}{%
+\section{EXERCISE 5 - Use log-likelihood ratio tests to evaluate
+logistic regression
+models}\label{exercise-5---use-log-likelihood-ratio-tests-to-evaluate-logistic-regression-models}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Do logistic regression - \emph{correct} as the dependent variable and
+  \emph{target.frames} as the independent variable. (Make sure that you
+  understand what \emph{target.frames} encode). Create two models - a
+  pooled model and a partial-pooling model. The partial-pooling model
+  should include a subject-specific intercept.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pool\_m }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames, df, }\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\NormalTok{partpool\_m }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ subject), df, }\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+i. the likelihood-function for logistic regression is: $L(p)={\displaystyle\prod_{i=1}^Np^{y_i}(1-p)^{(1-y_i)}}$ (Remember the probability mass function for the Bernoulli Distribution). Create a function that calculates the likelihood. 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{likelihood\_fun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model)\{}
+\NormalTok{  yhat }\OtherTok{\textless{}{-}} \FunctionTok{fitted.values}\NormalTok{(model)}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{correct}
+  \FunctionTok{prod}\NormalTok{(yhat}\SpecialCharTok{\^{}}\NormalTok{(y)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yhat)}\SpecialCharTok{\^{}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ii. the log-likelihood-function for logistic regression is: $l(p) = {\displaystyle\sum_{i=1}^N}[y_i\ln{p}+(1-y_i)\ln{(1-p)}$. Create a function that calculates the log-likelihood  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{likelihood\_log\_fun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(model)\{}
+\NormalTok{  yhat }\OtherTok{\textless{}{-}} \FunctionTok{fitted.values}\NormalTok{(model)}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{correct}
+  \FunctionTok{sum}\NormalTok{(y}\SpecialCharTok{*}\FunctionTok{log}\NormalTok{(yhat)}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{y)}\SpecialCharTok{*}\FunctionTok{log}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yhat))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+iii. apply both functions to the pooling model you just created. Make sure that the log-likelihood matches what is returned from the _logLik_ function for the pooled model. Does the likelihood-function return a value that is surprising? Why is the log-likelihood preferable when working with computers with limited precision?
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{likelihood\_fun}\NormalTok{(pool\_m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{likelihood\_log\_fun}\NormalTok{(pool\_m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -10865.25
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(}\FunctionTok{logLik}\NormalTok{(pool\_m))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'log Lik.' 0 (df=2)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{logLik}\NormalTok{(pool\_m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'log Lik.' -10865.25 (df=2)
+\end{verbatim}
+
+The log-likelihood function matches with the return of the logLik
+function. The likelihood function returns 0 as does the exponential of
+the logLik function. This is surprising since, in theory, this value is
+not possible, since there cannot be a likelihood of 0 of observing
+something that has already been observed. Also, for the function to
+return 0 either y or yhat has to be zero. It is not possible for yhat to
+be zero since it is on the logarithmic scale and the logarithm of 0 is
+not defined. However, in reality it is not returning 0, it is returning
+a very small likelihood that is not precisely estimated by the computer.
+Therefore, it makes sense to use log-likelihood since our computers can
+actually estimate these numbers more precisely, which makes it easier
+for us to contrast them.
+
+\begin{verbatim}
+iv. now show that the log-likelihood is a little off when applied to the partial pooling model - (the likelihood function is different for the multilevel function - see section 2.1 of https://www.researchgate.net/profile/Douglas-Bates/publication/2753537_Computational_Methods_for_Multilevel_Modelling/links/00b4953b4108d73427000000/Computational-Methods-for-Multilevel-Modelling.pdf if you are interested)  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{likelihood\_log\_fun}\NormalTok{(partpool\_m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -10565.53
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{logLik}\NormalTok{(partpool\_m)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'log Lik.' -10622.03 (df=3)
+\end{verbatim}
+
+As can be seen from the output the log-likelihood function is a little
+off. Since the likelihood function is different for the multilevel
+function the function returns a wrong log-likelihood.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Use log-likelihood ratio tests to argue for the addition of predictor
+  variables, start from the null model,
+  \texttt{glm(correct\ \textasciitilde{}\ 1,\ \textquotesingle{}binomial\textquotesingle{},\ data)},
+  then add subject-level intercepts, then add a group-level effect of
+  \emph{target.frames} and finally add subject-level slopes for
+  \emph{target.frames}. Also assess whether or not a correlation between
+  the subject-level slopes and the subject-level intercepts should be
+  included.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\StringTok{\textquotesingle{}binomial\textquotesingle{}}\NormalTok{, df)}
+\NormalTok{m2 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}} \DecValTok{1} \SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+\NormalTok{m3 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+\NormalTok{m4 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ target.frames }\SpecialCharTok{||}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+\NormalTok{m5 }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ target.frames }\SpecialCharTok{|}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+
+\FunctionTok{anova}\NormalTok{(m5, m1, m2, m3, m4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data: df
+## Models:
+## m1: correct ~ 1
+## m2: correct ~ 1 + (1 | subject)
+## m3: correct ~ target.frames + (1 | subject)
+## m4: correct ~ target.frames + (1 + target.frames || subject)
+## m5: correct ~ target.frames + (1 + target.frames | subject)
+##    npar   AIC   BIC logLik deviance    Chisq Df Pr(>Chisq)    
+## m1    1 26685 26693 -13342    26683                           
+## m2    2 26319 26335 -13158    26315  367.980  1  < 2.2e-16 ***
+## m3    3 21250 21274 -10622    21244 5071.035  1  < 2.2e-16 ***
+## m4    4 20929 20961 -10460    20921  323.487  1  < 2.2e-16 ***
+## m5    5 20908 20948 -10449    20898   22.926  1  1.684e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+The underlying null hypothesis of the anova method is that the addition
+of parameters between the models are just adding noise. We can see that
+the 5th model (correct \textasciitilde{} target.frames + (1 +
+target.frames \textbar{} subject)) has the highest log-likelihood and a
+significant p-value. This signifies that the reduction in deviance would
+be surprising if the added parameters are just noise. The model
+including a correlation between the subject-level slopes and the
+subject-level intercepts has a lower log-likelihood than the similar
+model not including a correlation.
+
+\begin{verbatim}
+i. write a short methods section and a results section where you indicate which model you chose and the statistics relevant for that choice. Include a plot of the estimated group-level function with `xlim=c(0, 8)` that includes the estimated subject-specific functions.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.frames, }\AttributeTok{y =} \FunctionTok{fitted.values}\NormalTok{(pool\_m), }\AttributeTok{color=} \StringTok{"Complete Pooling"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.frames, }\AttributeTok{y =} \FunctionTok{fitted.values}\NormalTok{(m5), }\AttributeTok{color=} \StringTok{"Partial Pooling"}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ subject) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Target Frames"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Fitted Values"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{6}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{\textquotesingle{}Estimated Subject{-}Specific Functions\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_5_files/figure-latex/5.2.i-1.pdf} A
+null model was constructed followed by models of increasing complexity
+including multi level effects such as random slope and intercept. Using
+the anova function, the null model was compared to the more complex
+models.
+
+The chosen model predicts correct from target frames and include target
+frames as random intercept and subject as random slopes. \emph{correct
+\textasciitilde{} target.frames + (1 + target.frames \textbar{}
+subject)}
+
+The model was significant, with a logLIk = -10449, deviance = 20898 and
+\chi(1) = 22.926 and p \textless{} 0.5.
+
+This was chosen since it has the highest loglik value, lowest deviance
+and has a significant p-value, and thus seemed the better choice
+compared to the other, more simpler models, since the added complexity
+did not seem to be pure noise.
+
+\begin{verbatim}
+ii. also include in the results section whether the fit didn't look good for any of the subjects. If so, identify those subjects in the report, and judge (no statistical test) whether their performance (accuracy) differed from that of the other subjects. Was their performance better than chance? (Use a statistical test this time) (50 %)  
+\end{verbatim}
+
+Subject 24 looks a little odd when looking at the partial pooling
+function of that subject. The deviance between the complete pooling and
+the partial pooling for that subject suggest that the performance
+differed from the average of all the subjects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Testing the performance of subject 24 statistically }
+\NormalTok{subject24 }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(subject }\SpecialCharTok{==} \StringTok{"24"}\NormalTok{) }
+
+\FunctionTok{t.test}\NormalTok{(subject24}\SpecialCharTok{$}\NormalTok{correct, }\AttributeTok{mu=}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One Sample t-test
+## 
+## data:  subject24$correct
+## t = 4.026, df = 873, p-value = 6.167e-05
+## alternative hypothesis: true mean is not equal to 0.5
+## 95 percent confidence interval:
+##  0.5345964 0.6004150
+## sample estimates:
+## mean of x 
+## 0.5675057
+\end{verbatim}
+
+Using a one sample t-test 56\% correct skriv mere *** significantly
+better than chance
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Now add \emph{pas} to the group-level effects - if a log-likelihood
+  ratio test justifies this. Also add the interaction between \emph{pas}
+  and \emph{target.frames} and check whether a log-likelihood ratio test
+  justifies this
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pas\_m }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ target.frames }\SpecialCharTok{|}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+\NormalTok{pas\_m\_int }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{*}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ target.frames }\SpecialCharTok{|}\NormalTok{ subject), df, }\StringTok{"binomial"}\NormalTok{)}
+
+\FunctionTok{anova}\NormalTok{(pas\_m, pas\_m\_int, m5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Data: df
+## Models:
+## m5: correct ~ target.frames + (1 + target.frames | subject)
+## pas_m: correct ~ target.frames + pas + (1 + target.frames | subject)
+## pas_m_int: correct ~ target.frames * pas + (1 + target.frames | subject)
+##           npar   AIC   BIC   logLik deviance   Chisq Df Pr(>Chisq)    
+## m5           5 20908 20948 -10448.8    20898                          
+## pas_m        8 19880 19945  -9931.8    19864 1033.99  3  < 2.2e-16 ***
+## pas_m_int   11 19506 19596  -9742.0    19484  379.58  3  < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+A log-likelihood ratio test justifies the addition of the interaction
+between \emph{pas} and \emph{target.frames} to the group-level effects
+since the p-value is significant.
+
+\begin{verbatim}
+ii. plot the estimated group-level functions over `xlim=c(0, 8)` for each of the four PAS-ratings - add this plot to your report (see: 5.2.i) and add a description of your chosen model. Describe how _pas_ affects accuracy together with target duration if at all. Also comment on the estimated functions' behaviour at target.frame=0 - is that behaviour reasonable?  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# model with group level effects}
+\NormalTok{pas\_m\_pool }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(correct }\SpecialCharTok{\textasciitilde{}}\NormalTok{ target.frames }\SpecialCharTok{*}\NormalTok{ pas, df, }\AttributeTok{family=}\StringTok{"binomial"}\NormalTok{)}
+
+\CommentTok{\# plotting}
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.frames, }\AttributeTok{y =} \FunctionTok{fitted.values}\NormalTok{(pas\_m\_pool), }\AttributeTok{color=}\NormalTok{ pas)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Target Frames"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Fitted Values"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{6}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Estimated group{-}level functions for each PAS{-}rating"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_5_files/figure-latex/5.3.ii-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Extracting estimates}
+\FunctionTok{summary}\NormalTok{(pas\_m\_int)}\SpecialCharTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      Estimate Std. Error    z value     Pr(>|z|)
+## (Intercept)        -0.1216434 0.06418888 -1.8950856 5.808106e-02
+## target.frames       0.1148029 0.03709749  3.0946264 1.970610e-03
+## pas2               -0.5713801 0.08948025 -6.3855441 1.707891e-10
+## pas3               -0.5384393 0.13979523 -3.8516285 1.173349e-04
+## pas4                0.2014689 0.25131910  0.8016457 4.227579e-01
+## target.frames:pas2  0.4471796 0.03476556 12.8627151 7.296785e-38
+## target.frames:pas3  0.7486726 0.04601616 16.2697756 1.617495e-59
+## target.frames:pas4  0.7593037 0.06867317 11.0567736 2.032788e-28
+\end{verbatim}
+
+The chosen model \emph{correct \textasciitilde{} target.frames * pas +
+(1 + target.frames \textbar{} subject)} includes an interaction effect
+and it is expected that the duration of target frames affects accuracy
+differently with different pas ratings. It is justified by the result of
+the anova and by visually inspecting the plot, that the interaction
+between pas and target frames affects accuracy. Specifically, the
+estimate of target.frames:pas2 is lower than the estimate of
+target.frames:pas3 meaning that an increase in target frames is
+affecting accuracy more in pas 3 than the same increase in target frames
+will affect accuracy in pas 2. All but one interaction effects
+(frames:pas2) are significant, suggesting this difference in the
+influence of the increase of target frames across the four pas levels.
+
+At a target level of 0 the performance is expected to be at chance
+level. The intercept of the model is predicted to be 46.96\% which is
+somewhat close to chance as expected.
+
+\hypertarget{exercise-6---test-linear-hypotheses}{%
+\section{EXERCISE 6 - Test linear
+hypotheses}\label{exercise-6---test-linear-hypotheses}}
+
+In this section we are going to test different hypotheses. We assume
+that we have already proved that more objective evidence (longer
+duration of stimuli) is sufficient to increase accuracy in and of itself
+and that more subjective evidence (higher PAS ratings) is also
+sufficient to increase accuracy in and of itself.\\
+We want to test a hypothesis for each of the three neighbouring
+differences in PAS, i.e.~the difference between 2 and 1, the difference
+between 3 and 2 and the difference between 4 and 3. More specifically,
+we want to test the hypothesis that accuracy increases faster with
+objective evidence if subjective evidence is higher at the same time,
+i.e.~we want to test for an interaction.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Fit a model based on the following formula:
+  \texttt{correct\ \textasciitilde{}\ pas\ *\ target.frames\ +\ (target.frames\ \textbar{}\ subject))}
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    First, use \texttt{summary} (yes, you are allowed to!) to argue that
+    accuracy increases faster with objective evidence for PAS 2 than for
+    PAS 1.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(pas\_m\_int)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: correct ~ target.frames * pas + (1 + target.frames | subject)
+##    Data: df
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##  19506.1  19595.5  -9742.0  19484.1    25033 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -19.0116   0.0537   0.1607   0.4849   1.4465 
+## 
+## Random effects:
+##  Groups  Name          Variance Std.Dev. Corr 
+##  subject (Intercept)   0.03697  0.1923        
+##          target.frames 0.02057  0.1434   -0.76
+## Number of obs: 25044, groups:  subject, 29
+## 
+## Fixed effects:
+##                    Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)        -0.12164    0.06419  -1.895 0.058081 .  
+## target.frames       0.11480    0.03710   3.095 0.001971 ** 
+## pas2               -0.57138    0.08948  -6.386 1.71e-10 ***
+## pas3               -0.53844    0.13980  -3.852 0.000117 ***
+## pas4                0.20147    0.25132   0.802 0.422758    
+## target.frames:pas2  0.44718    0.03477  12.863  < 2e-16 ***
+## target.frames:pas3  0.74867    0.04602  16.270  < 2e-16 ***
+## target.frames:pas4  0.75930    0.06867  11.057  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) trgt.f pas2   pas3   pas4   trg.:2 trg.:3
+## target.frms -0.811                                          
+## pas2        -0.462  0.306                                   
+## pas3        -0.308  0.208  0.249                            
+## pas4        -0.175  0.124  0.123  0.091                     
+## trgt.frms:2  0.482 -0.429 -0.874 -0.246 -0.125              
+## trgt.frms:3  0.393 -0.359 -0.279 -0.891 -0.111  0.371       
+## trgt.frms:4  0.276 -0.260 -0.164 -0.121 -0.919  0.226  0.200
+\end{verbatim}
+
+The coefficient for the interaction effect of pas 2 is positive
+(specifically 0.44). This signifies that accuracy increases faster with
+objective evidence for PAS 2 than for PAS 1.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\item
+  \texttt{summary} won't allow you to test whether accuracy increases
+  faster with objective evidence for PAS 3 than for PAS 2 (unless you
+  use \texttt{relevel}, which you are not allowed to in this exercise).
+  Instead, we'll be using the function \texttt{glht} from the
+  \texttt{multcomp} package
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    To redo the test in 6.1.i, you can create a \emph{contrast} vector.
+    This vector will have the length of the number of estimated
+    group-level effects and any specific contrast you can think of can
+    be specified using this. For redoing the test from 6.1.i, the code
+    snippet below will do
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# testing whether PAS 2 is different from PAS 1}
+\NormalTok{contrast.vector1 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{gh }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, contrast.vector1)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(gh))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.44718    0.03477   12.86   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+\begin{verbatim}
+ii. Now test the hypothesis that accuracy increases faster with objective evidence for PAS 3 than for PAS 2.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# as another example, we could also test whether there is a difference in}
+\DocumentationTok{\#\# intercepts between PAS 2 and PAS 3}
+\NormalTok{contrast.vector2 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{gh }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, contrast.vector2)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(gh))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.30149    0.04626   6.518 7.13e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+The estimate is positive which signifies the faster increase of accuracy
+with objective evidence for PAS 3 than for PAS 2.
+
+\begin{verbatim}
+iii. Also test the hypothesis that accuracy increases faster with objective evidence for PAS 4 than for PAS 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{contrast.vector3 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{gh3 }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, contrast.vector3)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(gh3))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)
+## 1 == 0  0.01063    0.07464   0.142    0.887
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+The estimate is positive, however, it is a low and not significant
+estimate. Thus, not suggesting significantly faster increases with
+objective evidence for PAS 4 than for PAS 3.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Finally, test that whether the difference between PAS 2 and 1 (tested
+  in 6.1.i) is greater than the difference between PAS 4 and 3 (tested
+  in 6.2.iii)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# looking at the difference of differences}
+\CommentTok{\# difference of differences}
+\NormalTok{K }\OtherTok{\textless{}{-}}\NormalTok{ contrast.vector1 }\SpecialCharTok{{-}}\NormalTok{ contrast.vector3}
+
+
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, }\AttributeTok{linfct =}\NormalTok{ K)}
+\FunctionTok{summary}\NormalTok{(t)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.43655    0.08298   5.261 1.43e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+There is a significant difference between the increase in accuracy
+between PAS 2 and 1 and the increase of accuracy between PAS 4 and 3.
+Since the estimate is positive, the difference between PAS 2 and 1 is
+greater than the difference between PAS 4 and 3.
+
+\hypertarget{snippet-for-6.2.i}{%
+\subsubsection{Snippet for 6.2.i}\label{snippet-for-6.2.i}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# testing whether PAS 2 is different from PAS 1}
+\NormalTok{contrast.vector }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{gh }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, contrast.vector)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(gh))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.44718    0.03477   12.86   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# as another example, we could also test whether there is a difference in}
+\DocumentationTok{\#\# intercepts between PAS 2 and PAS 3}
+\NormalTok{contrast.vector }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{1}\NormalTok{)}
+\NormalTok{gh }\OtherTok{\textless{}{-}} \FunctionTok{glht}\NormalTok{(pas\_m\_int, contrast.vector)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(gh))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glmer(formula = correct ~ target.frames * pas + (1 + target.frames | 
+##     subject), data = df, family = "binomial")
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0 -0.68618    0.08573  -8.004 1.11e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+\end{verbatim}
+
+\hypertarget{exercise-7---estimate-psychometric-functions-for-the-perceptual-awareness-scale-and-evaluate-them}{%
+\section{EXERCISE 7 - Estimate psychometric functions for the Perceptual
+Awareness Scale and evaluate
+them}\label{exercise-7---estimate-psychometric-functions-for-the-perceptual-awareness-scale-and-evaluate-them}}
+
+We saw in 5.3 that the estimated functions went below chance at a target
+duration of 0 frames (0 ms). This does not seem reasonable, so we will
+be trying a different approach for fitting here.\\
+We will fit the following function that results in a sigmoid,
+\(f(x) = a + \frac {b - a} {1 + e^{\frac {c-x} {d}}}\)\\
+It has four parameters: \emph{a}, which can be interpreted as the
+minimum accuracy level, \emph{b}, which can be interpreted as the
+maximum accuracy level, \emph{c}, which can be interpreted as the
+so-called inflexion point, i.e.~where the derivative of the sigmoid
+reaches its maximum and \emph{d}, which can be interpreted as the
+steepness at the inflexion point. (When \emph{d} goes towards infinity,
+the slope goes towards a straight line, and when it goes towards 0, the
+slope goes towards a step function).
+
+We can define a function of a residual sum of squares as below
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(dataset, par)}
+\NormalTok{\{}
+    \DocumentationTok{\#\# "dataset" should be a data.frame containing the variables x (target.frames)}
+    \DocumentationTok{\#\# and y (correct)}
+    
+    \DocumentationTok{\#\# "par" are our four parameters (a numeric vector) }
+\NormalTok{    a }\OtherTok{=}\NormalTok{ par[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    b }\OtherTok{=}\NormalTok{ par[}\DecValTok{2}\NormalTok{]}
+\NormalTok{    c }\OtherTok{=}\NormalTok{ par[}\DecValTok{3}\NormalTok{]}
+\NormalTok{    d }\OtherTok{=}\NormalTok{ par[}\DecValTok{4}\NormalTok{]}
+    
+\NormalTok{    x }\OtherTok{\textless{}{-}}\NormalTok{ dataset}\SpecialCharTok{$}\NormalTok{x}
+\NormalTok{    y }\OtherTok{\textless{}{-}}\NormalTok{ dataset}\SpecialCharTok{$}\NormalTok{y}
+    
+\NormalTok{    y.hat }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ ((b}\SpecialCharTok{{-}}\NormalTok{a)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{((c}\SpecialCharTok{{-}}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{d)))}
+    
+\NormalTok{    RSS }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((y }\SpecialCharTok{{-}}\NormalTok{ y.hat)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+    \FunctionTok{return}\NormalTok{(RSS)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Now, we will fit the sigmoid for the four PAS ratings for Subject 7
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    use the function \texttt{optim}. It returns a list that among other
+    things contains the four estimated parameters. You should set the
+    following arguments:\\
+    \texttt{par}: you can set \emph{c} and \emph{d} as 1. Find good
+    choices for \emph{a} and \emph{b} yourself (and argue why they are
+    appropriate)\\
+    \texttt{fn}: which function to minimise?\\
+    \texttt{data}: the data frame with \emph{x}, \emph{target.frames},
+    and \emph{y}, \emph{correct} in it\\
+    \texttt{method}: `L-BFGS-B'\\
+    \texttt{lower}: lower bounds for the four parameters, (the lowest
+    value they can take), you can set \emph{c} and \emph{d} as
+    \texttt{-Inf}. Find good choices for \emph{a} and \emph{b} yourself
+    (and argue why they are appropriate)\\
+    \texttt{upper}: upper bounds for the four parameters, (the highest
+    value they can take) can set \emph{c} and \emph{d} as \texttt{Inf}.
+    Find good choices for \emph{a} and \emph{b} yourself (and argue why
+    they are appropriate)
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subject7 }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(subject }\SpecialCharTok{==} \StringTok{\textquotesingle{}7\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\StringTok{\textquotesingle{}x\textquotesingle{}} \OtherTok{=}\NormalTok{ target.frames, }\StringTok{\textquotesingle{}y\textquotesingle{}} \OtherTok{=}\NormalTok{ correct, pas)}
+
+
+\NormalTok{par1 }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{(}\AttributeTok{par =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{fn =}\NormalTok{ RSS, }
+      \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(subject7, pas }\SpecialCharTok{==} \StringTok{\textquotesingle{}1\textquotesingle{}}\NormalTok{), }
+      \AttributeTok{method =} \StringTok{\textquotesingle{}L{-}BFGS{-}B\textquotesingle{}}\NormalTok{, }
+      \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{), }
+      \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{Inf}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))}
+
+\NormalTok{par2 }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{(}\AttributeTok{par =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{fn =}\NormalTok{ RSS, }
+      \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(subject7, pas }\SpecialCharTok{==} \StringTok{\textquotesingle{}2\textquotesingle{}}\NormalTok{), }
+      \AttributeTok{method =} \StringTok{\textquotesingle{}L{-}BFGS{-}B\textquotesingle{}}\NormalTok{, }
+      \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{), }
+      \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{Inf}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))}
+
+\NormalTok{par3 }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{(}\AttributeTok{par =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{fn =}\NormalTok{ RSS, }
+      \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(subject7, pas }\SpecialCharTok{==} \StringTok{\textquotesingle{}3\textquotesingle{}}\NormalTok{), }
+      \AttributeTok{method =} \StringTok{\textquotesingle{}L{-}BFGS{-}B\textquotesingle{}}\NormalTok{, }
+      \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{), }
+      \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{Inf}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))}
+
+\NormalTok{par4 }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{(}\AttributeTok{par =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{fn =}\NormalTok{ RSS, }
+      \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(subject7, pas }\SpecialCharTok{==} \StringTok{\textquotesingle{}4\textquotesingle{}}\NormalTok{), }
+      \AttributeTok{method =} \StringTok{\textquotesingle{}L{-}BFGS{-}B\textquotesingle{}}\NormalTok{, }
+      \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{), }
+      \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{Inf}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+A is set to 0.5 since the expected minimum in accuracy is chance level.
+B is set to 1 since it is not possible to be more than 100\% accurate.
+The minimum and the maximum accuracy level has a lower bound at 0.5 and
+an upper bound at 1 since the possible accuracy level has to be whithin
+this range.
+
+\begin{verbatim}
+ii. Plot the fits for the PAS ratings on a single plot (for subject 7) `xlim=c(0, 8)`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# New data frame with hypothetical x values }
+\NormalTok{newdf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\StringTok{\textquotesingle{}x\textquotesingle{}} \OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)))}
+
+\CommentTok{\# Calculating the yhats using the sigmoid function}
+\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{yhat1 }\OtherTok{\textless{}{-}}\NormalTok{ par1}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ ((par1}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{par1}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{((par1}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{par1}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{4}\NormalTok{])))}
+\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{yhat2 }\OtherTok{\textless{}{-}}\NormalTok{ par2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ ((par2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{par2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{((par2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{par2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{4}\NormalTok{])))}
+\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{yhat3 }\OtherTok{\textless{}{-}}\NormalTok{ par3}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ ((par3}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{par3}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{((par3}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{par3}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{4}\NormalTok{])))}
+\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{yhat4 }\OtherTok{\textless{}{-}}\NormalTok{ par4}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ ((par4}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{par4}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{((par4}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{newdf}\SpecialCharTok{$}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{par4}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{4}\NormalTok{])))}
+
+\CommentTok{\# Plotting}
+\FunctionTok{ggplot}\NormalTok{(newdf) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat1, }\AttributeTok{color =} \StringTok{\textquotesingle{}Pas 1\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat2, }\AttributeTok{color =} \StringTok{\textquotesingle{}Pas 2\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat3, }\AttributeTok{color =} \StringTok{\textquotesingle{}Pas 3\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat4, }\AttributeTok{color =} \StringTok{\textquotesingle{}Pas 4\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{\textquotesingle{}Target Frames\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Predicted Accuracy\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{\textquotesingle{}PAS Ratings Sigmoid Fits for Participant 7\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_5_files/figure-latex/7.1.ii-1.pdf}
+
+\begin{verbatim}
+iii. Create a similar plot for the PAS ratings on a single plot (for subject 7), but this time based on the model from 6.1 `xlim=c(0, 8)` 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# New data frame with hypothetical values for target frames between 0 and 8, hypothetical pas ratings between 1 and 4 and a column indicating the subject number 7}
+\NormalTok{newdat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\StringTok{\textquotesingle{}target.frames\textquotesingle{}} \OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.001}\NormalTok{), }\StringTok{\textquotesingle{}pas\textquotesingle{}} \OtherTok{=} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{), }\StringTok{\textquotesingle{}subject\textquotesingle{}} \OtherTok{=} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}7\textquotesingle{}}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cbind(target.frames = seq(0, 8, by = 0.001), pas = rep(1:4), : number
+## of rows of result is not a multiple of vector length (arg 2)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{newdat}\SpecialCharTok{$}\NormalTok{subject }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(newdat}\SpecialCharTok{$}\NormalTok{subject)}
+\NormalTok{newdat}\SpecialCharTok{$}\NormalTok{pas }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(newdat}\SpecialCharTok{$}\NormalTok{pas)}
+\NormalTok{newdat}\SpecialCharTok{$}\NormalTok{target.frames }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(newdat}\SpecialCharTok{$}\NormalTok{target.frames)}
+
+\CommentTok{\# Predicting yhats for the hypothetical data points }
+\NormalTok{newdat}\SpecialCharTok{$}\NormalTok{yhat }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(pas\_m\_int, }\AttributeTok{newdata =}\NormalTok{ newdat, }\AttributeTok{type =} \StringTok{\textquotesingle{}response\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Plotting}
+\FunctionTok{ggplot}\NormalTok{(newdat) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ target.frames, }\AttributeTok{y =}\NormalTok{ yhat, }\AttributeTok{color =}\NormalTok{ pas)) }\SpecialCharTok{+} 
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{\textquotesingle{}Target Frames\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Predicted Accuracy\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{\textquotesingle{}PAS Ratings Model Fits for Participant 7\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_5_files/figure-latex/7.1.iii-1.pdf}
+
+\begin{verbatim}
+iv. Comment on the differences between the fits - mention some advantages and disadvantages of each way  
+\end{verbatim}
+
+The plot illustrating the sigmoid functions have no estimated accuracies
+below 0.5. This is not the case for the plot illustrating the logitic
+regression fits showing accuracies below chance for pas 1, 2 and 3. This
+is an advantage of the sigmoid fit since it is expected that even
+without perceptual awareness accuracy will be at chance level. However,
+an advantage of the model fit is that it takes the interaction into
+account. Another difference is illustrated by the continued increase in
+accuracy with increase in target frames on the model fit plot. Contrary,
+on the sigmoid fit the accuracy is kept at a steady level after a rapid
+increase. This indicates advantages of both the fits. The model fit
+exhibits the development of accuracy with increase in target frames and
+the sigmoid fit can visually underline the shift in awareness.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Finally, estimate the parameters for all subjects and each of their
+  four PAS ratings.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Data frame containing x, y, pas and subject}
+\NormalTok{loop\_df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\StringTok{\textquotesingle{}x\textquotesingle{}} \OtherTok{=}\NormalTok{ target.frames, }\StringTok{\textquotesingle{}y\textquotesingle{}} \OtherTok{=}\NormalTok{ correct, pas, subject)}
+
+\CommentTok{\# Empty data frame for output from every loop}
+\NormalTok{output }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{()}
+
+\CommentTok{\# Double loop}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{subject)))\{}
+  \ControlFlowTok{for}\NormalTok{ (n }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pas))) \{}
+  \CommentTok{\# Creating a data frame for each participant in each pas  }
+\NormalTok{  subject\_df }\OtherTok{\textless{}{-}}\NormalTok{ loop\_df }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(subject }\SpecialCharTok{==}\NormalTok{ i }\SpecialCharTok{\&}\NormalTok{ pas }\SpecialCharTok{==}\NormalTok{ n)}
+  
+  \CommentTok{\# Using the optim function on each subject in each pas}
+\NormalTok{  parameters }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{(}\AttributeTok{par =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+                     \AttributeTok{data =}\NormalTok{ subject\_df,  }
+                     \AttributeTok{fn =}\NormalTok{ RSS, }
+                     \AttributeTok{method =} \StringTok{\textquotesingle{}L{-}BFGS{-}B\textquotesingle{}}\NormalTok{, }
+                     \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{), }
+                     \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{Inf}\NormalTok{, }\ConstantTok{Inf}\NormalTok{))}
+  
+  \CommentTok{\# Creating a data frame with subject, pas and each of the four parameters }
+\NormalTok{  optimated\_output }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{subject =}\NormalTok{ i,}
+                 \AttributeTok{pas =}\NormalTok{ n,}
+                 \AttributeTok{a =}\NormalTok{ parameters}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{],}
+                 \AttributeTok{b =}\NormalTok{ parameters}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{],}
+                 \AttributeTok{c =}\NormalTok{ parameters}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{3}\NormalTok{],}
+                 \AttributeTok{d =}\NormalTok{ parameters}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{4}\NormalTok{])}
+  
+  \CommentTok{\# Row binding the data frames for each subject into the empty data}
+\NormalTok{  output }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(output, optimated\_output)}
+     
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Then plot the estimated function at the group-level by taking the mean
+for each of the four parameters, \emph{a}, \emph{b}, \emph{c} and
+\emph{d} across subjects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Finding the mean of each of the four parameters grouped by pas}
+\NormalTok{mean\_par }\OtherTok{\textless{}{-}}\NormalTok{ output }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(pas) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{a=}\FunctionTok{mean}\NormalTok{(a), }\AttributeTok{b=}\FunctionTok{mean}\NormalTok{(b), }\AttributeTok{c=}\FunctionTok{mean}\NormalTok{(c), }\AttributeTok{d=}\FunctionTok{mean}\NormalTok{(d))}
+
+\CommentTok{\# Creating a data frame containing hypothetical target framea values }
+\NormalTok{plotdf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\StringTok{\textquotesingle{}x\textquotesingle{}} \OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.0001}\NormalTok{)))}
+
+\CommentTok{\# Calculating yhats  using the sigmoid function}
+\NormalTok{yhat\_fun }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(a, b, c, d, x)\{}
+\NormalTok{  yhat }\OtherTok{\textless{}{-}}\NormalTok{ a}\SpecialCharTok{+}\NormalTok{(b}\SpecialCharTok{{-}}\NormalTok{a)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\FunctionTok{exp}\NormalTok{((c}\SpecialCharTok{{-}}\NormalTok{x)}\SpecialCharTok{/}\NormalTok{d))}
+\NormalTok{\}}
+
+
+\NormalTok{plotdf}\SpecialCharTok{$}\NormalTok{yhat1 }\OtherTok{\textless{}{-}} \FunctionTok{yhat\_fun}\NormalTok{(mean\_par}\SpecialCharTok{$}\NormalTok{a[}\DecValTok{1}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{c[}\DecValTok{1}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{d[}\DecValTok{1}\NormalTok{], plotdf}\SpecialCharTok{$}\NormalTok{x)}
+
+\NormalTok{plotdf}\SpecialCharTok{$}\NormalTok{yhat2 }\OtherTok{\textless{}{-}} \FunctionTok{yhat\_fun}\NormalTok{(mean\_par}\SpecialCharTok{$}\NormalTok{a[}\DecValTok{2}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{2}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{c[}\DecValTok{2}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{d[}\DecValTok{2}\NormalTok{], plotdf}\SpecialCharTok{$}\NormalTok{x)}
+
+\NormalTok{plotdf}\SpecialCharTok{$}\NormalTok{yhat3 }\OtherTok{\textless{}{-}} \FunctionTok{yhat\_fun}\NormalTok{(mean\_par}\SpecialCharTok{$}\NormalTok{a[}\DecValTok{3}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{3}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{c[}\DecValTok{3}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{d[}\DecValTok{3}\NormalTok{], plotdf}\SpecialCharTok{$}\NormalTok{x)}
+
+\NormalTok{plotdf}\SpecialCharTok{$}\NormalTok{yhat4 }\OtherTok{\textless{}{-}} \FunctionTok{yhat\_fun}\NormalTok{(mean\_par}\SpecialCharTok{$}\NormalTok{a[}\DecValTok{4}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{4}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{c[}\DecValTok{4}\NormalTok{], mean\_par}\SpecialCharTok{$}\NormalTok{d[}\DecValTok{4}\NormalTok{], plotdf}\SpecialCharTok{$}\NormalTok{x)}
+
+
+\FunctionTok{ggplot}\NormalTok{(plotdf) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat1), }\AttributeTok{color=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat2), }\AttributeTok{color =} \StringTok{\textquotesingle{}darkgreen\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat3), }\AttributeTok{color =} \StringTok{\textquotesingle{}turquoise\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ yhat4), }\AttributeTok{color =} \StringTok{\textquotesingle{}violet\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{8}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{\textquotesingle{}Target Frames\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{\textquotesingle{}Predicted Accuracy\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{\textquotesingle{}Estimated group{-}level mean function\textquotesingle{}}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_exercise_5_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{verbatim}
+i. compare with the figure you made in 5.3.ii and comment on the differences between the fits - mention some advantages and disadvantages of both.
+\end{verbatim}
+
+Similar overall tendencies are visible in the two plots. The accuracy in
+pas 1 is rather constant in both plots, however, it is closer to the
+expected chance level in figure 5.3.ii. One advantage of the
+psychometric functions may be the possibility to visually examine the
+shift in awareness. E.g. for pas 3 a shift in awareness is present going
+from 2 frames to 3. A disadvantage of the estimated group-level mean
+function is the missing information when moddelling the means.
+
+\end{document}

@@ -50,6 +50,7 @@ times = np.arange(-200, 804, 4) #804 for it to include 800 :)
 ```
     
     iii. Create the sensor covariance matrix $\Sigma_{XX}$: $$\Sigma_{XX} = \frac 1 N \sum_{i=1}^N XX^T$$ $N$ is the number of repetitions and $X$ has $s$ rows and $t$ columns (sensors and time), thus the shape is $X_{s\times t}$. Do the sensors pick up independent signals? (Use `plt.imshow` to plot the sensor covariance matrix)  
+<<<<<<< HEAD
     
 ```{python}
 # Creating an empty matrix which has the size as an sxs matrix
@@ -80,6 +81,9 @@ average_rep.shape
 
 ```
     
+=======
+    iv. Make an average over the repetition dimension using `np.mean` - use the `axis` argument. (The resulting array should have two dimensions ~~with time as the first and magnetic field as the second~~ with sensor as the first and time as the second)  
+>>>>>>> 75ce8c3b91c782169eae3384d56c9497b27e4256
     v. Plot the magnetic field (based on the average) as it evolves over time for each of the sensors (a line for each) (time on the x-axis and magnetic field on the y-axis). Add a horizontal line at $y = 0$ and a vertical line at $x = 0$ using `plt.axvline` and `plt.axhline`  
 ```{python}
 
@@ -138,6 +142,7 @@ y = np.load("data/pas_vector.npy")
 ```
 
     i. Which dimension in the `data` array does it have the same length as?  
+<<<<<<< HEAD
 ```{python}
 y.shape
 ```
@@ -182,6 +187,9 @@ plt.axhline(color = 'k')
 plt.show()
 ```
     
+=======
+    ii. Now make four averages (As in Exercise 1.1.iii), one for each PAS rating, and plot the four time courses (one for each PAS rating) for the sensor found in Exercise ~~1.1.v~~  1.1.vi
+>>>>>>> 75ce8c3b91c782169eae3384d56c9497b27e4256
     iii. Notice that there are two early peaks (measuring visual activity from the brain), one before 200 ms and one around 250 ms. Describe how the amplitudes of responses are related to the four PAS-scores. Does PAS 2 behave differently than expected?  
 *** SKRIV HER *** 
 Pas 2 has the highest peak - that is a bit surprising? It would be expected of pas 2 to have a lower peak compared to pas 3 and 4 since it indicates lower rated perceptual awareness 

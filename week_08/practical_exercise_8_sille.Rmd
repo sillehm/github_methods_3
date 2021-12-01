@@ -1,8 +1,10 @@
 ---
 title: "practical_exercise_8 , Methods 3, 2021, autumn semester"
-author: 'Sille Hasselbalch Markussen'
+author: "Sille Hasselbalch Markussen"
 date: "01.12.21"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 <style type="text/css">
@@ -31,7 +33,7 @@ library('reticulate')
 The files `megmag_data.npy` and `pas_vector.npy` can be downloaded here (http://laumollerandersen.org/data_methods_3/megmag_data.npy) and here (http://laumollerandersen.org/data_methods_3/pas_vector.npy)   
 
 1) Load `megmag_data.npy` and call it `data` using `np.load`. You can use `join`, which can be imported from `os.path`, to create paths from different string segments  
-```{python}
+```{python 1.1}
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -39,19 +41,19 @@ data = np.load('/Users/Sillemarkussen/Desktop/Methods_3/megmag_data.npy')
 ```
 
     i. The data is a 3-dimensional array. The first dimension is number of repetitions of a visual stimulus , the second dimension is the number of sensors that record magnetic fields (in Tesla) that stem from neurons activating in the brain, and the third dimension is the number of time samples. How many repetitions, sensors and time samples are there?  
-```{python}
+```{python 1.1.i}
 data.shape
 ```
 The first dimension consists of 682 repetitions of visual stimulus, the second consists of 102 sensors and the third of 251 time samples. 
 
     ii. The time range is from (and including) -200 ms to (and including) 800 ms with a sample recorded every 4 ms. At time 0, the visual stimulus was briefly presented. Create a 1-dimensional array called `times` that represents this.
-```{python}
+```{python 1.1.ii}
 times = np.arange(-200, 804, 4) #804 for it to include 800 :)
 ```
     
     iii. Create the sensor covariance matrix $\Sigma_{XX}$: $$\Sigma_{XX} = \frac 1 N \sum_{i=1}^N XX^T$$ $N$ is the number of repetitions and $X$ has $s$ rows and $t$ columns (sensors and time), thus the shape is $X_{s\times t}$. Do the sensors pick up independent signals? (Use `plt.imshow` to plot the sensor covariance matrix)  
     
-```{python}
+```{python 1.1.iii}
 # Creating an empty matrix which has the size as an sxs matrix
 cov_init = np.zeros(shape = (102,102))
 
@@ -70,36 +72,31 @@ plt.colorbar()
 plt.title("Sensor covariance matrix")
 plt.show()
 ```
-*** SKRIV HER ***
-Do the sensors pick up independent signals? ved 50 er der meget covariance 
-der er forskellige farver = they do not pick up completely independent signals. Especially ved 50  
-  
+<br>
+From the covariance plot it is visible that the shared variance between the sensors is rarely exactly zero. Therefore, it does not seem to be the case that the sensors pick up independent signals.
+<br>
     iv. Make an average over the repetition dimension using `np.mean` - use the `axis` argument. (The resulting array should have two dimensions with time as the first and magnetic field as the second)  
-```{python}
+```{python 1.1.iv}
 
 # Array containing the average over axis 0 (repetitions)
 average_rep = np.mean(data, axis = 0)
-
-average_rep.shape
-
 ```
     
     v. Plot the magnetic field (based on the average) as it evolves over time for each of the sensors (a line for each) (time on the x-axis and magnetic field on the y-axis). Add a horizontal line at $y = 0$ and a vertical line at $x = 0$ using `plt.axvline` and `plt.axhline`  
-```{python}
-
+```{python 1.1.v}
 plt.figure()
 plt.plot(times, average_rep.T) #T tranposes so that the dimensions match
 plt.axvline()
 plt.axhline()
-plt.title("***")
-plt.xlabel()("***")
-plt.ylabel("***")
+plt.title("Average Magnetic Field")
+plt.xlabel("Time (ms)")
+plt.ylabel("Magnetic Field (Tesla)")
 plt.show()
 
 ```
-    
+<br> 
     vi. Find the maximal magnetic field in the average. Then use `np.argmax` and `np.unravel_index` to find the sensor that has the maximal magnetic field.
-```{python}
+```{python 1.1.vi}
 
 # Maximal magnetic field in tesla
 average_rep.max()
@@ -112,10 +109,10 @@ ind = np.argmax(average_rep)
 np.unravel_index(ind, (102,251))
 
 ```
-The maximal magnetic field is $$2.79e^-13$$ and it is the 73th sensor that has the maximal magnetic field. 
-
+The maximal magnetic field is $2.79e^{-13}$ and it is the $73^{th}$ sensor that has the maximal magnetic field. 
+<br>
     vii. Plot the magnetic field for each of the repetitions (a line for each) for the sensor that has the maximal magnetic field. Highlight the time point with the maximal magnetic field in the average (as found in 1.1.v) using `plt.axvline`  
-```{python}
+```{python 1.1.vii}
 
 # Creating an array with each repetition at each time point for sensor number 73
 sensor_73 = data[:,73,:]
@@ -123,39 +120,37 @@ sensor_73 = data[:,73,:]
 
 plt.figure()
 plt.plot(times, sensor_73.T) #T transposes so that the dimensions match
-plt.axvline(248, color='k', linestyle="--")
+plt.axvline(248, color='k', linestyle="--", label ='Maximal Average Magnetic Field')
 plt.axvline()
 plt.axhline()
-plt.title("***")
-plt.xlabel("***")
-plt.ylabel("***")
+plt.title("Magnetic Field for Sensor 73")
+plt.xlabel("Time (ms)")
+plt.ylabel("Magnetic Field (Tesla)")
 plt.legend()
 plt.show()
 
 ```
-    
-    viii. Describe in your own words how the response found in the average is represented in the single repetitions. But do make sure to use the concepts _signal_ and _noise_ and comment on any differences on the range of values on the y-axis  
-*** SKRIV HER *** ???
-682 repetitions og det er deres samlede værdier lagt sammen 
-Range: ikke lige så store negative udsving on the y-axis around the average response at least compared to other 
+<br>
 
-Signal: the average 
-Noise: data from the 73th sensor - a lot of individual differences - not peaking simultaniously - but the average is what we take as the "signal" since it is averagely where people tend to peak ish 
-However the signal also include a lot of noise since we loose a lot of information
+    viii. Describe in your own words how the response found in the average is represented in the single repetitions. But do make sure to use the concepts _signal_ and _noise_ and comment on any differences on the range of values on the y-axis  
+<br>
+The plot depicts the 682 repetitions for sensor 73. The average of all of these repetitions was illustrated by the red line, sensor 73 with the highest peak in the plot in exercise 1.1.v. Since there is a lot of noise in the measurements in each repetition it is difficult to notice the time point for maximal magnetic field for the average. However, knowing the maximal average magnetic field, there does seem to be less negative fluctuations and slightly more positive. For a stronger signal, the previous plot showing the average is preferable since we average out some noise. 
+<br>
 
 2) Now load `pas_vector.npy` (call it `y`). PAS is the same as in Assignment 2, describing the clarity of the subjective experience the subject reported after seeing the briefly presented stimulus  
-```{python}
+```{python 1.2}
 y = np.load("pas_vector.npy")
 ```
 
     i. Which dimension in the `data` array does it have the same length as?  
-```{python}
+```{python 1.2.i}
 y.shape
 ```
 The same as the number of repetitions of visual stimulus which is the first dimension of the three dimensional array. 
 
+<br>
     ii. Now make four averages (As in Exercise 1.1.iii), one for each PAS rating, and plot the four time courses (one for each PAS rating) for the sensor found in Exercise 1.1.v  
-```{python}
+```{python 1.2.ii}
 # Finding the indices belonging to each pas
 pas_1 = np.where(y == 1)
 pas_2 = np.where(y == 2)
@@ -177,19 +172,22 @@ plt.plot(times, average_pas_4, color = 'g', label = 'Pas 4')
 plt.legend()
 plt.axvline(color = 'k')
 plt.axhline(color = 'k')
+plt.title("Average Magnetic Field for Each Pas Rating")
+plt.xlabel("Time (ms)")
+plt.ylabel("Magnetic Field (Tesla)")
 plt.show()
 ```
-    
+<br>
+
     iii. Notice that there are two early peaks (measuring visual activity from the brain), one before 200 ms and one around 250 ms. Describe how the amplitudes of responses are related to the four PAS-scores. Does PAS 2 behave differently than expected?  
-*** SKRIV HER *** 
-Pas 2 has the highest peak - that is a bit surprising? It would be expected of pas 2 to have a lower peak compared to pas 3 and 4 since it indicates lower rated perceptual awareness 
-It makes sense that pas 1
+The amplitudes of the peaks is tightly related to the four pas-ratings. Pas 1 has the lowest amplitude, which fits the assumption that less activity is measured when the participant rated no perceptual awareness. Contrary, higher amplitudes are visible for pass 3 and 4 also fitting the assumption of more activity related to greater perceptual awareness. The amplitude for pas 2 is surprising. It would be expected of pas 2 to have a lower peak compared to pas 3 and 4 since it indicates lower rated perceptual awareness.
+<br>
 
 # EXERCISE 2 - Do logistic regression to classify pairs of PAS-ratings  
 
 1) Now, we are going to do Logistic Regression with the aim of classifying the PAS-rating given by the subject  
     i. We'll start with a binary problem - create a new array called `data_1_2` that only contains PAS responses 1 and 2. Similarly, create a `y_1_2` for the target vector  
-```{python}
+```{python 2.1.i}
 from array import *
 
 # List of indices from pas 1 and 2
@@ -206,7 +204,7 @@ y_1_2 = y[pas_1_2]
 ```
     
     ii. Scikit-learn expects our observations (`data_1_2`) to be in a 2d-array, which has samples (repetitions) on dimension 1 and features (predictor variables) on dimension 2. Our `data_1_2` is a three-dimensional array. Our strategy will be to collapse our two last dimensions (sensors and time) into one dimension, while keeping the first dimension as it is (repetitions). Use `np.reshape` to create a variable `X_1_2` that fulfils these criteria. 
-```{python}
+```{python 2.1.ii}
 # 
 X_1_2 = data_1_2.copy()
 X_1_2.shape = X_1_2.shape[0],-1
@@ -216,12 +214,12 @@ X_1_2.shape
 ```
     
     iii. Import the `StandardScaler` and scale `X_1_2` 
-```{python}
+```{python 2.1.iii}
 from sklearn.preprocessing import  StandardScaler
 ```
     
     iv. Do a standard `LogisticRegression` - can be imported from `sklearn.linear_model` - make sure there is no `penalty` applied  
-```{python}
+```{python 2.1.iv}
 # Standardizing 
 sc = StandardScaler()
 sc.fit(X_1_2)
@@ -236,13 +234,14 @@ logR.fit(X_1_2_std, y_1_2)
 ```
     
     v. Use the `score` method of `LogisticRegression` to find out how many labels were classified correctly. Are we overfitting? Besides the score, what would make you suspect that we are overfitting?  
-```{python}
+```{python 2.1.v}
 print(logR.score(X_1_2_std, y_1_2))
 ```
-
+The classification score of 1 indicates that all predictions are correct. Given that the model is tested on the data used to fit the model it is not a surprising score. Another indication of overfitting is the 25k features for ~200 rows.
+<br>
 
     vi. Now apply the _L1_ penalty instead - how many of the coefficients (`.coef_`) are non-zero after this? 
-```{python}
+```{python 2.1.vi}
 np.random.seed(7)
 
 logR_L1 = LogisticRegression(penalty='l1', solver='liblinear') 
@@ -255,11 +254,11 @@ coef_non_zero = np.count_nonzero(coef)
 print(coef_non_zero)
 
 ```
-
 There are 271 non-zero coefficients.
+<br>
 
     vii. Create a new reduced $X$ that only includes the non-zero coefficients - show the covariance of the non-zero features (two covariance matrices can be made; $X_{reduced}X_{reduced}^T$ or $X_{reduced}^TX_{reduced}$ (you choose the right one)) . Plot the covariance of the features using `plt.imshow`. Compared to the plot from 1.1.iii, do we see less covariance?  
-```{python}
+```{python 2.1.vii}
 # Creating the reduced X
 
 # Finding the indices for the non-zero coefficients
@@ -275,21 +274,23 @@ covar = (np.transpose(X_1_2_nz))@X_1_2_nz
 plt.figure()
 plt.imshow(covar)
 plt.colorbar()
+plt.title("Sensor covariance matrix")
 plt.show()
 ```
-The covariance of the non-zero features was calculated by $X_{reduced}^TX_{reduced}$ since it there are 271 features.
-
-*** Compared to the plot from 1.1.iii, do we see less covariance?  *** ???
+<br>
+The covariance of the non-zero features was calculated by $X_{reduced}^TX_{reduced}$ since there are 271 features.
+It is difficult to compare the two matrices since the variables are on different scales. However, it seems that more shared variance is found between the features than the between the sensors. Thus, there is not seen less covariance compared to the plot from 1.1.iii.
+<br>
 
 2) Now, we are going to build better (more predictive) models by using cross-validation as an outcome measure    
     i. Import `cross_val_score` and `StratifiedKFold` from `sklearn.model_selection`  
-```{python}
+```{python 2.2.i}
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 
 ```
     
     ii. To make sure that our training data sets are not biased to one target (PAS) or the other, create `y_1_2_equal`, which should have an equal number of each target. Create a similar `X_1_2_equal`. The function `equalize_targets_binary` in the code chunk associated with Exercise 2.2.ii can be used. Remember to scale `X_1_2_equal`!  
-```{python}
+```{python 2.2.ii}
 # Exercise 2.2.ii
 def equalize_targets_binary(data, y):
     np.random.seed(7)
@@ -322,16 +323,16 @@ X_1_2_equal, y_1_2_equal = equalize_targets_binary(data_1_2, y_1_2)
 X_1_2_equal_3d = X_1_2_equal.copy()
 
 # Collapsing the sensor and the time dimensions to be able to scale
-X_1_2_equal.shape = X_1_2_equal.shape[0],-1
+X_1_2_equal_3d.shape = X_1_2_equal_3d.shape[0],-1
 
 # Scaling X_1_2_equal
 sc = StandardScaler()
-sc.fit(X_1_2_equal)
-X_1_2_equal_std = sc.transform(X_1_2_equal)
+sc.fit(X_1_2_equal_3d)
+X_1_2_equal_std = sc.transform(X_1_2_equal_3d)
 ```
   
     iii. Do cross-validation with 5 stratified folds doing standard `LogisticRegression` (See Exercise 2.1.iv)  
-```{python}
+```{python 2.2.iii}
 
 cv = StratifiedKFold()
 
@@ -342,7 +343,7 @@ print(scores_5)
 ```
     
     iv. Do L2-regularisation with the following `Cs=  [1e5, 1e1, 1e-5]`. Use the same kind of cross-validation as in Exercise 2.2.iii. In the best-scoring of these models, how many more/fewer predictions are correct (on average)? 
-```{python}
+```{python 2.2.iv}
 Cs = [1e5, 1e1, 1e-5]
 
 logR_l2_1e5 = LogisticRegression(C=Cs[0])
@@ -375,7 +376,9 @@ The best scoring model is correctly predicting accordingly approximately 12 and 
     v. Instead of fitting a model on all `n_sensors * n_samples` features, fit  a logistic regression (same kind as in Exercise 2.2.iv (use the `C` that resulted in the best prediction)) for __each__ time sample and use the same cross-validation as in Exercise 2.2.iii. 
     What are the time points where classification is best? Make a plot with time on the x-axis and classification score on the y-axis with a horizontal line at the chance level (what is the chance level for this analysis?)  
 
-```{python}
+
+```{python 2.2.v}
+
 # fitting a logistic regression for each time sample
 class_scores = []
 
@@ -405,10 +408,13 @@ plt.xlabel("Time")
 plt.ylabel("Classification Score")
 plt.show()
 ```
-  *** SKRIV HER *** ??? 780 se plot
-  
+<br>
+The time point for best classification is recorded 232 ms after the onset of the stimuli. Given the that the classification predictions are binary and equalized amount chance level accuracy is 50%.
+
+<br>
+
     vi. Now do the same, but with L1 regression - set `C=1e-1` - what are the time points when classification is best? (make a plot)?  
-```{python}
+```{python 2.2.vi}
 # fitting a logistic regression for each time sample
 class_scores_l1 = []
 
@@ -438,14 +444,11 @@ plt.xlabel("Time")
 plt.ylabel("Classification Score")
 plt.show()
 ```
- *** SKRIV HER OGSÅ *** ???   
-    
-    
+<br>
+The time point for best classification is recorded 244 ms after the onset of the stimuli.
+<br>
     vii. Finally, fit the same models as in Exercise 2.2.vi but now for `data_1_4` and `y_1_4` (create a data set and a target vector that only contains PAS responses 1 and 4). What are the time points when classification is best? Make a plot with time on the x-axis and classification score on the y-axis with a horizontal line at the chance level (what is the chance level for this analysis?)  
-```{python}
-# Loading data again
-data = np.load('megmag_data.npy')
-
+```{python 2.2.vii}
 # List of indices from pas 1 and 4
 pas_1_4 = pas_1[0].tolist() + pas_4[0].tolist()
 
@@ -491,10 +494,11 @@ plt.xlabel("Time")
 plt.ylabel("Classification Score")
 plt.show()
 ```
-    
-    
+<br>
+The time point for best classification is recorded 236 ms after the onset of the stimuli.
+
 3) Is pairwise classification of subjective experience possible? Any surprises in the classification accuracies, i.e. how does the classification score fore PAS 1 vs 4 compare to the classification score for PAS 1 vs 2?  
-```{python}
+```{python 2.3}
 np.mean(class_scores_1_4)
 np.mean(class_scores_l1)
 
@@ -502,18 +506,14 @@ np.max(class_scores_1_4)
 np.max(class_scores_l1)
 ```
 
-*** SKRIV HER *** ???
+The performance of the models is near chance level, hence, pairwise classification of subjective experience is not quite possible. The models show better performance at some time points but the accuracy never exceeds 65%, meaning that 35% is classified incorrectly. Intuitively it would be expected that better classification scores would be possible when differentiating pas 1 and 4 rather than 1 and 2 since the difference if perceptual awareness theoretically differ more. However, this was not the case.
 
-Is pairwise classification of subjective experience possible? - NO it is at chance level, but maybe some of the time points are better (max) rather than the average (mean of the list)
-Any surprises in the classification accuracies? - YES intuitively it should be easier to differentiate pas 1 and 4 than pas 1 and 2. 
-
-***
-
+<br>
 
 # EXERCISE 3 - Do a Support Vector Machine Classification on all four PAS-ratings  
 1) Do a Support Vector Machine Classification  
     i. First equalize the number of targets using the function associated with each PAS-rating using the function associated with Exercise 3.1.i  
-```{python}
+```{python 3.1.i}
 def equalize_targets(data, y):
     np.random.seed(7)
     targets = np.unique(y)
@@ -542,7 +542,7 @@ X_all_pas_equal, y_all_pas_equal = equalize_targets(data, y)
 ```
     
     ii. Run two classifiers, one with a linear kernel and one with a radial basis (other options should be left at their defaults) - the number of features is the number of sensors multiplied the number of samples. Which one is better predicting the category?
-```{python}
+```{python 3.1.ii}
 # Collapsing the sensor and the time dimensions to be able to scale
 X_all_pas_equal_3d = X_all_pas_equal.copy()
 X_all_pas_equal_3d.shape = X_all_pas_equal_3d.shape[0],-1
@@ -565,10 +565,11 @@ svm = SVC(kernel='rbf')
 scores_svm = cross_val_score(svm, X_all_pas_std, y_all_pas_equal, cv=cv)
 print(np.mean(scores_svm))
 ```
-    
-    iii. Run the sample-by-sample analysis (similar to Exercise 2.2.v) with the best kernel (from Exercise 3.1.ii). Make a plot with time on the x-axis and classification score on the y-axis with a horizontal line at the chance level (what is the chance level for this analysis?)
-```{python}
 
+The classifier with the radial basis is better at predicting the category with an accuracy of 33.33%
+
+    iii. Run the sample-by-sample analysis (similar to Exercise 2.2.v) with the best kernel (from Exercise 3.1.ii). Make a plot with time on the x-axis and classification score on the y-axis with a horizontal line at the chance level (what is the chance level for this analysis?)
+```{python 3.1.iii}
 # fitting a logistic regression for each time sample
 class_scores_3_iii = []
 
@@ -593,20 +594,23 @@ plt.xlabel("Time")
 plt.ylabel("Classification Score")
 plt.show()
 ```
-  
+<br>
+Classifying the four pas ratings must have a chance level at $100/4=25$%
+<br>
+
     iv. Is classification of subjective experience possible at around 200-250 ms?  
 Looking at the plot it is visible that classification scores are above chance level around 200-250 ms.
-```{python}
+```{python 3.1.iv}
 lower = np.where(times == 200)[0][0]
 upper = np.where(times == 248)[0][0]
 
 np.mean(class_scores_3_iii[lower:upper])
 ```
-The average classification score in the interval is 30% - above chance
+The average classification score in the interval is 30%. This is above chance level so classification of subjective experience is arguably possible at around 200-250 ms. 
 
 
 2) Finally, split the equalized data set (with all four ratings) into a training part and test part, where the test part if 30 % of the trials. Use `train_test_split` from `sklearn.model_selection`  
-```{python}
+```{python 3.2}
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X_all_pas_std, y_all_pas_equal, test_size=0.3, random_state=42, stratify =y_all_pas_equal)
@@ -615,26 +619,26 @@ X_train, X_test, y_train, y_test = train_test_split(X_all_pas_std, y_all_pas_equ
 ```
 
     i. Use the kernel that resulted in the best classification in Exercise 3.1.ii and `fit`the training set and `predict` on the test set. This time your features are the number of sensors multiplied by the number of samples.  
-```{python}
+```{python 3.2.i}
 svm = SVC(kernel='rbf')
 svm.fit(X_train, y_train)
 predicted = svm.predict(X_test)
 ```
     
     ii. Create a _confusion matrix_. It is a 4x4 matrix. The row names and the column names are the PAS-scores. There will thus be 16 entries. The PAS1xPAS1 entry will be the number of actual PAS1, $y_{pas1}$ that were predicted as PAS1, $\hat y_{pas1}$. The PAS1xPAS2 entry will be the number of actual PAS1, $y_{pas1}$ that were predicted as PAS2, $\hat y_{pas2}$ and so on for the remaining 14 entries.  Plot the matrix
-```{python}
+```{python 3.2.ii}
 from sklearn.metrics import confusion_matrix, plot_confusion_matrix
 
 plt.figure()
 plot_confusion_matrix(svm, X_test, y_test)
 plt.show()
 ```
- 
+
+<br>
+
     iii. Based on the confusion matrix, describe how ratings are misclassified and if that makes sense given that ratings should measure the strength/quality of the subjective experience. Is the classifier biased towards specific ratings?  
 
-true level 3 flest predicted 1 - længere væk i forhold til 1 og 2 eller 2 og 3 agtig 
+Interestingly, the true pas 3 ratings, are mostly classified as pas 1 as well as pas 1 is  predicted as pas 3 more often than pas 1. It applies to pas 1 and four that they are more often correctly classified, than any of the other pas ratings. 
 
-2 og 4 er bedst 
- 
  
  
